@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 
+import javax.swing.*;
+
 public class MainActivity extends AppCompatActivity {
     TextView game, name, health, level, stage, enemyHealth, enemyLevel, enemyName;
 
@@ -50,5 +52,10 @@ public class MainActivity extends AppCompatActivity {
         enemyHealth.setText("Enemy HP: " + enemy.hp);
         enemyLevel.setText("Enemy Level: " + enemy.level);
         enemyName.setText(enemy.name);
+    }
+
+    public JPanel createPanel() {
+
+        return null;
     }
 }
