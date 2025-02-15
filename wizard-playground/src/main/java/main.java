@@ -1,61 +1,76 @@
-import android.annotation.SuppressLint;
-import android.view.View;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.DialogInterface;
-import androidx.appcompat.app.AlertDialog;
 
-import javax.swing.*;
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import game.entity;
+import game.characters.*;
 
-public class MainActivity extends AppCompatActivity {
-    TextView game, name, health, level, stage, enemyHealth, enemyLevel, enemyName;
+public class main extends ApplicationAdapter {
+    public void main(String[] args) {
+        entity player = setPyromancer();
+        player.addXp(3);
+        System.out.println(player.xp);
+        player.addXp(300);
+        player.addXp(50000);
+        System.out.println(player.level);
+    }
 
-    @SuppressLint("MissingInflatedId")
+    private entity setPyromancer() {
+        return new Pyromancer(1);
+    }
+
+    Sprite bucketSprite;
+    SpriteBatch spriteBatch;
+    FitViewport viewport;
+
+    public void create() {
+        spriteBatch = new SpriteBatch();
+        viewport = new FitViewport(8, 5);
+
+        bucketSprite = new Sprite(); // Initialize the sprite based on the texture
+        bucketSprite.setSize(1, 1); // Define the size of the sprite
+    }
+
+    public void render() {
+        input();
+        logic();
+        draw();
+    }
+
+    private void input() {
+        float speed = .25f;
+        float delta = Gdx.graphics.getDeltaTime();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            bucketSprite.translateX(speed * delta);
+        }
+    }
+
+    private void logic() {
+
+    }
+
+    private void draw() {
+        ScreenUtils.clear(Color.BLACK);
+        viewport.apply();
+        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+        spriteBatch.begin();
+
+        spriteBatch.end();
+
+    }
+
+
+    public void dispose() {
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        game = findViewById(R.id.gameView);
-        name = findViewById(R.id.nameView);
-        health = findViewById(R.id.healthView);
-        level = findViewById(R.id.levelView);
-        stage = findViewById(R.id.stageView);
-        enemyHealth = findViewById(R.id.enemyHealthView);
-        enemyLevel = findViewById(R.id.enemyLevelView);
-        enemyName = findViewById(R.id.enemyNameView);
-    }
-
-    public void openStatsMenu(View sourceView) {
-
-        String[] statsList = new String[5];
-        statsList[0] = "Stat 1 here";
-        statsList[1] = "Stat 2 here";
-        statsList[2] = "Stat 3 here";
-        statsList[3] = "Stat 4 here";
-        statsList[4] = "Stat 5 here";
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder
-                .setTitle("Choose a potion")
-                .setItems(statsList, null)
-                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-    }
-    public void update(View sourceView) {
-        name.setText(name + " the " + character);
-        health.setText("HP: " + player.hp);
-        level.setText("level: " + player.level);
-        enemyHealth.setText("Enemy HP: " + enemy.hp);
-        enemyLevel.setText("Enemy Level: " + enemy.level);
-        enemyName.setText(enemy.name);
-    }
-
-    public JPanel createPanel() {
-
-        return null;
+    public void resize(int width, int height) {
+        viewport.update(width, height, true); // true centers the camera
     }
 }
