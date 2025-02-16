@@ -1,9 +1,14 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public abstract class entity {
+public abstract class Entity {
+    private List<Spell> knownSpells = new ArrayList<>();
+
+
     public static final Map<Integer, Integer> levelMap = new HashMap<>();
     static {
         levelMap.put(1, 0);
@@ -37,30 +42,19 @@ public abstract class entity {
     public Integer stamina;
     public Proficiency pyromancyProficiency;
     public Proficiency hydromancyProficiency;
-
     public Proficiency aeromancyProficiency;
-
     public Proficiency geomancyProficiency;
     public Proficiency blackMagicProficiency;
-
     public Proficiency whiteMagicProficiency;
-
     public Proficiency conjurationProficiency;
     public Proficiency illusionaryProficiency;
-
     public Proficiency draconicProficiency;
-
     public Proficiency natureProficiency;
 
     // public Integer chronomancy;
     // time manipulation, use it for gamey reasons for game resets
 
-
-
-
-
-
-    public entity(int hp, int healPots, int critChance, int stamina, int level,
+    public Entity(int hp, int healPots, int critChance, int stamina, int level,
                   int kills, int xp, String characterType) {
         this.hp = hp;
         this.healPots = healPots;
@@ -70,16 +64,16 @@ public abstract class entity {
         this.kills = kills;
         this.xp = xp;
         this.character = characterType;
-        this.pyromancyProficiency = Proficiency.noProficiency;
-        this.hydromancyProficiency = Proficiency.noProficiency;
-        this.aeromancyProficiency = Proficiency.noProficiency;
-        this.geomancyProficiency = Proficiency.noProficiency;
-        this.blackMagicProficiency = Proficiency.noProficiency;
-        this.whiteMagicProficiency = Proficiency.noProficiency;
-        this.conjurationProficiency = Proficiency.noProficiency;
-        this.illusionaryProficiency = Proficiency.noProficiency;
-        this.draconicProficiency = Proficiency.noProficiency;
-        this.natureProficiency = Proficiency.noProficiency;
+        this.pyromancyProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.hydromancyProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.aeromancyProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.geomancyProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.blackMagicProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.whiteMagicProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.conjurationProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.illusionaryProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.draconicProficiency = Proficiency.LIMITED_PROFICIENCY;
+        this.natureProficiency = Proficiency.LIMITED_PROFICIENCY;
     }
 
     public void addXp(int xpToAdd) {
@@ -105,5 +99,18 @@ public abstract class entity {
     }
 
     public void updateDamageAttributes() {
+    }
+
+    public void learnSpell(Spell spell) {
+        knownSpells.add(spell);
+        System.out.printf("%s learns %s!%n", this.character, spell.getName());
+    }
+
+    public void castSpell(Spell spell, Entity target) {
+        if (knownSpells.contains(spell)) {
+            spell.castSpell(this, target);
+        } else {
+            System.out.printf("%s does not know the spell %s.%n", this.character, spell.getName());
+        }
     }
 }

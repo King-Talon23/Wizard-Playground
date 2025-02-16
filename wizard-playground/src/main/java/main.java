@@ -8,13 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import game.characters;
-import game.entity;
+import game.Entity;
 
 
 public class main extends ApplicationAdapter {
     public void main(String[] args) {
         characters chars = new characters();
-        entity player = chars.setPyromancer();
+        Entity player = chars.setPyromancer();
         player.addXp(1);
     }
 
