@@ -14,7 +14,7 @@
  */
 //Note, the above license and copyright applies to this file only.
 
-package test;
+package ui.test;
 
 import org.lwjgl.system.macosx.LibC;
 

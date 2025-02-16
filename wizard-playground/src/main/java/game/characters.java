@@ -1,27 +1,21 @@
 package game;
 
-import java.util.HashMap;
-import java.util.Map;
-import game.entity.*;
+import static java.lang.StrictMath.round;
 
-// https://wizardrealm.com/wizards/types.html
-// https://www.popoptiq.com/types-of-mages/
+
 public class characters {
     public static class Pyromancer extends entity {
         public Pyromancer(int level) {
             super(0, 0, 0, 0, 0, 0,
-                levelMap.get(level), 0, 0, "pyromancer");
-            updateAttributes();
+                levelMap.get(level), "pyromancer");
+            updateGeneralAttributes(); // initialize base stats
+            this.pyromancyProficiency = Proficiency.fullProficiency;
+            this.draconicProficiency = Proficiency.halfProficiency;
         }
 
         @Override
-        public void updateAttributes() {
-            this.hp = 25 + (this.level * 10);
-            this.healPots = 4 + this.level;
-            this.maxDamage = 15 + (this.level * 2);
-            this.minDamage = 3 + this.level;
-            this.critChance = 45 + this.level;
-            this.stamina = 50 + this.level;
+        public void updateDamageAttributes() {
+            this.hp += 1;
         }
     }
     public entity setPyromancer() {
@@ -31,31 +25,33 @@ public class characters {
     private void setHydromancer() {
 
     }
-    private void setAreomancer() {
+    private void setAeromancer() {
 
     }
     private void setGeomancer() {
 
     }
 
-    private void setNecromancer() {
+    private void setDarkMage() {
 
     }
+    private void setWhiteMage() {
 
-    private void setFerromancer() {
-        //metals and shi
-    }
-
-    private void setBiomancer() {
-        //life or sum
-    }
-
-    private void setGifted() {
-    // gifted powers from a god?
     }
 
     private void setConjurer() {
     // familiars and whatnot
+    }
+
+    private void setIllusionist() {
+    }
+
+    private void setDraconicMage() {
+
+    }
+
+    private void setDruid() {
+
     }
 
 }

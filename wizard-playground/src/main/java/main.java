@@ -7,21 +7,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import game.characters;
 import game.entity;
-import game.characters.*;
+
 
 public class main extends ApplicationAdapter {
     public void main(String[] args) {
-        entity player = setPyromancer();
-        player.addXp(3);
-        System.out.println(player.xp);
-        player.addXp(300);
-        player.addXp(50000);
-        System.out.println(player.level);
-    }
-
-    private entity setPyromancer() {
-        return new Pyromancer(1);
+        characters chars = new characters();
+        entity player = chars.setPyromancer();
+        player.addXp(1);
     }
 
     Sprite bucketSprite;

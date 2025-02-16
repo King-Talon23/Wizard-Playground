@@ -29,27 +29,57 @@ public abstract class entity {
     }
     public Integer healPots;
     public Integer hp;
-    public Integer maxDamage;
-    public Integer minDamage;
     public Integer critChance;
     public Integer level;
     public Integer kills;
     public Integer xp;
     public final String character;
     public Integer stamina;
+    public Proficiency pyromancyProficiency;
+    public Proficiency hydromancyProficiency;
 
-    public entity(int hp, int healPots, int maxDamage, int minDamage, int critChance, int stamina, int level,
+    public Proficiency aeromancyProficiency;
+
+    public Proficiency geomancyProficiency;
+    public Proficiency blackMagicProficiency;
+
+    public Proficiency whiteMagicProficiency;
+
+    public Proficiency conjurationProficiency;
+    public Proficiency illusionaryProficiency;
+
+    public Proficiency draconicProficiency;
+
+    public Proficiency natureProficiency;
+
+    // public Integer chronomancy;
+    // time manipulation, use it for gamey reasons for game resets
+
+
+
+
+
+
+    public entity(int hp, int healPots, int critChance, int stamina, int level,
                   int kills, int xp, String characterType) {
         this.hp = hp;
         this.healPots = healPots;
-        this.maxDamage = maxDamage;
-        this.minDamage = minDamage;
         this.critChance = critChance;
         this.stamina = stamina;
         this.level = level;
         this.kills = kills;
         this.xp = xp;
         this.character = characterType;
+        this.pyromancyProficiency = Proficiency.noProficiency;
+        this.hydromancyProficiency = Proficiency.noProficiency;
+        this.aeromancyProficiency = Proficiency.noProficiency;
+        this.geomancyProficiency = Proficiency.noProficiency;
+        this.blackMagicProficiency = Proficiency.noProficiency;
+        this.whiteMagicProficiency = Proficiency.noProficiency;
+        this.conjurationProficiency = Proficiency.noProficiency;
+        this.illusionaryProficiency = Proficiency.noProficiency;
+        this.draconicProficiency = Proficiency.noProficiency;
+        this.natureProficiency = Proficiency.noProficiency;
     }
 
     public void addXp(int xpToAdd) {
@@ -58,14 +88,22 @@ public abstract class entity {
             Integer nextLevelXp = levelMap.get(this.level + 1);
             if (nextLevelXp != null && this.xp >= nextLevelXp) {
                 this.level++;
-                System.out.println("Congratulations! You've reached level " + this.level + ".");
-                updateAttributes();
+                System.out.printf("Congratulations! You've reached level %d.\n", this.level);
+                updateGeneralAttributes();
             } else {
                 break;
             }
         }
     }
 
-    public void updateAttributes() {
+    public void updateGeneralAttributes() {
+        this.hp = 25 + (this.level * 10);
+        // + 1 health pot every 4 levels
+        this.healPots = 4 + (int) Math.floor(this.level / 4.0f);
+        this.critChance = 5 + this.level;
+        this.stamina = 50 + (this.level * 10);
+    }
+
+    public void updateDamageAttributes() {
     }
 }
